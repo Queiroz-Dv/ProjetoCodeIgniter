@@ -6,12 +6,21 @@ class Users extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        //Definition if there is a session
+        //Define if there is a session
     }
 
     //Show all users in a view  table
     public function index() {
         $data = array(
+            'title'=>'Users Register',
+            'styles' => array(
+                'vendor/datatables/dataTables.bootstrap4.min.css',
+            ),
+            'scripts' => array(
+                'vendor/datatables/jquery.dataTables.min.js',
+                'vendor/datatables/dataTables.bootstrap4.min.js',
+                'vendor/datatables/app.js',
+            ),
             'users' => $this->ion_auth->users()->result(),
         );
 //        echo '<pre>';
