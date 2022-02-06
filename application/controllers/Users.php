@@ -12,7 +12,7 @@ class Users extends CI_Controller {
     //Show all users in a view  table
     public function index() {
         $data = array(
-            'title'=>'Users Register',
+            'title' => 'Users Register',
             'styles' => array(
                 'vendor/datatables/dataTables.bootstrap4.min.css',
             ),
@@ -29,6 +29,21 @@ class Users extends CI_Controller {
         $this->load->view('layout/header', $data);
         $this->load->view('users/index');
         $this->load->view('layout/footer');
+    }
+
+    public function edit($user_id = NULL) {
+        if (!$user_id || !$this->ion_auth->user($user_id)->row()) {
+            exit('Iser not found.');
+        } else {
+            $data = array(
+                'title' => "Edit User",
+                'user' => $this->ion_auth->user($user_id)->row(),
+            );
+            $this->load->view('layout/header', $data);
+            $this->load->view('users/edit');
+            $this->load->view('layout/footer');
+            
+        }
     }
 
 }
