@@ -36,14 +36,20 @@ class Users extends CI_Controller {
         if (!$user_id || !$this->ion_auth->user($user_id)->row()) {
             exit('Iser not found.');
         } else {
-            $data = array(
-                'title' => "Edit User",
-                'user' => $this->ion_auth->user($user_id)->row(),
-                'user_profile' => $this->ion_auth->get_users_groups($user_id)->row(),
-            );
-            $this->load->view('layout/header', $data);
-            $this->load->view('users/edit');
-            $this->load->view('layout/footer');
+            $this->form_validation->set_rules('first_name', '', 'trim|required');
+            if ($this->form_validation->run()) {
+                exit('Validation');
+            } else {
+                $data = array(
+                    'title' => "Edit User",
+                    'user' => $this->ion_auth->user($user_id)->row(),
+                    'user_profile' => $this->ion_auth->get_users_groups($user_id)->row(),
+                );
+                $this->load->view('layout/header', $data);
+                $this->load->view('users/edit');
+                $this->load->view('layout/footer');
+            }
         }
     }
+
 }

@@ -27,7 +27,7 @@
                         <div class="col-md-4">
                             <label>Name</label>
                             <input type="text" class="form-control" name="first_name" placeholder="Your name" value="<?php echo $user->first_name; ?>">
-                                <small id="emailHelp" class="form-text text-muted">Type your name here...</small>
+                             <?php echo form_error('first_name','<small class="form-text text-danger">','</small>'); ?>
                         </div>
 
                         <div class="col-md-4">
