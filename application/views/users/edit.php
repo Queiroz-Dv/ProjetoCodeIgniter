@@ -33,13 +33,13 @@
                         <div class="col-md-4">
                             <label>Last name</label>
                             <input type="text" class="form-control" name="last_name" placeholder="Your last name" value="<?php echo $user->last_name; ?>">
-                                <small id="emailHelp" class="form-text text-muted">Type your last name here...</small>
+                                 <?php echo form_error('last_name','<small class="form-text text-danger">','</small>'); ?>
                         </div>
 
                         <div class="col-md-4">
-                            <label>User</label>
+                            <label>Username</label>
                             <input type="text" class="form-control" name="username" placeholder="Your username" value="<?php echo $user->username; ?>">
-                                <small id="emailHelp" class="form-text text-muted">Type your username here...</small>
+                                 <?php echo form_error('username','<small class="form-text text-danger">','</small>'); ?>
                         </div>
                     </div>
 
@@ -47,7 +47,7 @@
                         <div class="col-md-4">
                             <label>E-mail&nbsp;(Login)</label>
                             <input type="email" class="form-control" name="email" placeholder="Your e-mail" value="<?php echo $user->email; ?>">
-                                <small id="emailHelp" class="form-text text-muted">Type your email here...</small>
+                                 <?php echo form_error('email','<small class="form-text text-danger">','</small>'); ?>
                         </div>
                         <div class="col-md-4">
                             <label>Active</label>
@@ -69,13 +69,13 @@
                         <div class="col-md-6">
                             <label>Password</label>
                             <input type="password" class="form-control" name="password" placeholder="Your password">
-                                <small id="emailHelp" class="form-text text-muted">Type your email here...</small>
+                                  <?php echo form_error('password','<small class="form-text text-danger">','</small>'); ?>
                         </div>
 
                         <div class="col-md-6">
                             <label>Confirm again</label>
                             <input type="password" class="form-control" name="confirm_password" placeholder="Confirm your password">
-                                <small id="emailHelp" class="form-text text-muted">Type your email here...</small>
+                                <?php echo form_error('confirm_password','<small class="form-text text-danger">','</small>'); ?>
                         </div>
                         <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                     </div>

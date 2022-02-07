@@ -24,9 +24,9 @@ class Users extends CI_Controller {
             ),
             'users' => $this->ion_auth->users()->result(),
         );
-//        echo '<pre>';
-//        print_r($data['users']);
-//        exit();
+        echo '<pre>';
+        print_r($this->input->post());
+        exit();
         $this->load->view('layout/header', $data);
         $this->load->view('users/index');
         $this->load->view('layout/footer');
@@ -34,9 +34,15 @@ class Users extends CI_Controller {
 
     public function edit($user_id = NULL) {
         if (!$user_id || !$this->ion_auth->user($user_id)->row()) {
-            exit('Iser not found.');
+            $this->session->set_flashdata('error', 'User not found');
+            redirect('users');
         } else {
             $this->form_validation->set_rules('first_name', '', 'trim|required');
+            $this->form_validation->set_rules('last_name', '', 'trim|required');
+            $this->form_validation->set_rules('email', '', 'trim|required');
+            $this->form_validation->set_rules('username', '', 'trim|required');
+            $this->form_validation->set_rules('password', '', 'trim|required');
+            $this->form_validation->set_rules('confirm_password', '', 'trim|required');
             if ($this->form_validation->run()) {
                 exit('Validation');
             } else {
