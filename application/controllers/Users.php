@@ -11,6 +11,7 @@ class Users extends CI_Controller {
 
     //Show all users in a view  table
     public function index() {
+
         $data = array(
             'title' => 'Users Register',
             'styles' => array(
@@ -38,12 +39,11 @@ class Users extends CI_Controller {
             $data = array(
                 'title' => "Edit User",
                 'user' => $this->ion_auth->user($user_id)->row(),
+                'user_profile' => $this->ion_auth->get_users_groups($user_id)->row(),
             );
             $this->load->view('layout/header', $data);
             $this->load->view('users/edit');
             $this->load->view('layout/footer');
-            
         }
     }
-
 }

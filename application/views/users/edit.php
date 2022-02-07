@@ -22,21 +22,64 @@
                     </svg>&nbsp; Back</a>
             </div>
             <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <form method="POST" name="form_edit">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="first_name" placeholder="Your name" value="<?php echo $user->first_name; ?>">
+                                <small id="emailHelp" class="form-text text-muted">Type your name here...</small>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>Last name</label>
+                            <input type="text" class="form-control" name="last_name" placeholder="Your last name" value="<?php echo $user->last_name; ?>">
+                                <small id="emailHelp" class="form-text text-muted">Type your last name here...</small>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>User</label>
+                            <input type="text" class="form-control" name="username" placeholder="Your username" value="<?php echo $user->username; ?>">
+                                <small id="emailHelp" class="form-text text-muted">Type your username here...</small>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>E-mail&nbsp;(Login)</label>
+                            <input type="email" class="form-control" name="email" placeholder="Your e-mail" value="<?php echo $user->email; ?>">
+                                <small id="emailHelp" class="form-text text-muted">Type your email here...</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Active</label>
+                            <select class="form-control" name="active">
+                                <option value="0"<?php echo ($user->active == 0) ? 'selected' : '' ?>>No</option>
+                                <option value="1"<?php echo ($user->active == 1) ? 'selected' : '' ?>>Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Profile Access</label>
+                            <select class="form-control" name="user_profile">
+                                <option value="2"<?php echo ($user_profile->id == 2) ? 'selected' : '' ?>>Employee</option>
+                                <option value="1"<?php echo ($user_profile->id == 1) ? 'selected' : '' ?>>Administrator</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="password" placeholder="Your password">
+                                <small id="emailHelp" class="form-text text-muted">Type your email here...</small>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Confirm again</label>
+                            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm your password">
+                                <small id="emailHelp" class="form-text text-muted">Type your email here...</small>
+                        </div>
+                        <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                 </form>
             </div>
         </div>
