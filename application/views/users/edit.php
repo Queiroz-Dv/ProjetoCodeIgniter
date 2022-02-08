@@ -77,7 +77,7 @@
                             <input type="password" class="form-control" name="confirm_password" placeholder="Confirm your password">
                                 <?php echo form_error('confirm_password','<small class="form-text text-danger">','</small>'); ?>
                         </div>
-                        <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                        <input type="hidden" name="user_id" value="<?php echo $user->id ?>">
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                 </form>
