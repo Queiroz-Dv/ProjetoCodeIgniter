@@ -44,7 +44,40 @@ class Users extends CI_Controller {
             $this->form_validation->set_rules('password', 'Password', 'min_length[4]|max_length[255]');
             $this->form_validation->set_rules('confirm_password', 'Confirm', 'matches[password]');
             if ($this->form_validation->run()) {
-                exit('Validation');
+                $data = elements(
+                        array(
+                            'first_name',
+                            'last_name',
+                            'email',
+                            'username',
+                            'active',
+                            'password'
+                        ), $this->input->post()
+                );
+
+                $data = $this->security->xss_clean($data);
+                $password = $this->input->post('password');
+
+                //Verification to password
+                if (!$password) {
+                    unset($data['password']);
+                }
+
+                if ($this->ion_auth->update($user_id, $data)) {
+                    $user_profile_db = $this->ion_auth->get_users_groups($user_id)->row();
+                    $user_profile_post = $this->input->post('user_profile');
+
+                    //If is diff update group
+                    if ($user_profile_post != $user_profile_db->id) {
+                        $this->ion_auth->remove_from_group($user_profile_db->id, $user_id);
+                        $this->ion_auth->add_to_group($user_profile_post, $user_id);
+                    }
+
+                    $this->session->set_flashdata('Ssuccess', 'Data recorded with success');
+                } else {
+                    $this->session->set_flashdata('error', 'Erro to record the data');
+                }
+                redirect('users');
             } else {
                 $data = array(
                     'title' => "Edit User",
@@ -73,7 +106,7 @@ class Users extends CI_Controller {
         $user_id = $this->input->post('user_id');
 
         if ($this->CoreModel->GetById('users', array('username' => $username, 'id !=' => $user_id))) {
-            $this->form_validation->set_message('email_check', 'This username is already exists.');
+            $this->form_validation->set_message('username_check', 'This username is already exists.');
             return FALSE;
         } else {
             return TRUE;

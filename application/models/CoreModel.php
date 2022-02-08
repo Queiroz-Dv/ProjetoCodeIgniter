@@ -32,9 +32,9 @@ class CoreModel extends CI_Model {
                 $this->session->set_userdata('last_id', $this->db->insert_id());
             }
             if ($this->db->affected_rows() > 0) {
-                $this->ssesion->set_flashdata('success', 'Success! Data recorded.');
+                $this->session->set_flashdata('success', 'Success! Data recorded.');
             } else {
-                $this->ssession->set_flashdata('error', 'Error! Data were not recorded in our database');
+                $this->session->set_flashdata('error', 'Error! Data were not recorded in our database');
             }
         } else {
             
@@ -47,7 +47,7 @@ class CoreModel extends CI_Model {
             if ($this->db->update($table, $data, $condition)) {
                 $this->session->set_flashdata('Success!', 'Data recorded');
             } else {
-                $this->ssession->set_flashdata('error', 'Data were not recorded in our database');
+                $this->session->set_flashdata('error', 'Data were not recorded in our database');
             }
         } else {
             return FALSE;
