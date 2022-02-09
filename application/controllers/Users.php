@@ -133,6 +133,26 @@ class Users extends CI_Controller {
         }
     }
 
+    public function del($user_id = NULL) {
+        if (!$user_id || !$this->ion_auth->user($user_id)->row()) {
+            $this->session->set_flashdata('error', 'User not found');
+            redirect('users');
+        }
+
+        if ($this->ion_auth->is_admin($user_id)) {
+            $this->session->set_flashdata('error', " The administrator cannot be exclude");
+            redirect('users');
+        }
+
+        if ($this->ion_auth->delete_user($user_id)) {
+            $this->session->set_flashdata('success', "User exclude successfuly");
+            redirect('users');
+        } else {
+            $this->session->set_flashdata('error', " The administrator cannot be exclude");
+            redirect('users');
+        }
+    }
+
     public function email_check($email) {
         $user_id = $this->input->post('user_id');
 

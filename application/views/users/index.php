@@ -59,6 +59,7 @@
                                 <th>#</th>
                                 <th>User</th>
                                 <th>Login</th>
+                                <th>Profile</th>
                                 <th class="text-center">Active</th>
                                 <th class="text-right sorting_asc_disabled sorting_desc_disabled">Actions</th>
                             </tr>
@@ -69,12 +70,13 @@
                                     <td><?php echo $user->id ?></td>
                                     <td><?php echo $user->username ?></td>
                                     <td><?php echo $user->email ?></td>
+                                    <<td><?php echo ($this->ion_auth->is_admin($user->id) ? 'Administrator' : 'Employee'); ?></td>
                                     <td class="text-center pr-4"><?php echo ($user->active == 1 ? '<span class="badge badge-info btn-sm">Yes</span>' : '<span class="badge badge-warning btn-sm">No</span>') ?></td>
                                     <td class="text-right">
                                         <a title="Edit" href="<?php echo base_url('users/edit/' . $user->id); ?>" class="btn btn-sm btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
                                                 <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
                                             </svg></a>
-                                        <a title="Delete" href="" class="btn btn-sm btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-x-fill" viewBox="0 0 16 16">
+                                        <a title="Delete" href="<?php echo base_url('users/del/' . $user->id); ?>" class="btn btn-sm btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-x-fill" viewBox="0 0 16 16">
                                                 <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
                                             </svg></a>
                                     </td>
