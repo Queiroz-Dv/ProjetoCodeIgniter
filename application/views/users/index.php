@@ -94,7 +94,7 @@
                                             <div class="modal-body">Click in "Yes" if you would like to exclude the resgiter</div>
                                             <div class="modal-footer">
                                                 <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">No</button>
-                                                <a class="btn btn-danger btn-sm" href="<?php echo base_url('users/del/'.$user->id); ?>">Yes</a>
+                                                <a class="btn btn-danger btn-sm" href="<?php echo base_url('users/del/' . $user->id); ?>">Yes</a>
                                             </div>
                                         </div>
                                     </div>
