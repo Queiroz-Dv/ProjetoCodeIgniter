@@ -6,6 +6,9 @@ class Users extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        if (!$this->ion_auth->logged_in()) {
+            redirect('login');
+        }
         //Define if there is a session
     }
 
@@ -115,7 +118,7 @@ class Users extends CI_Controller {
                         $this->ion_auth->add_to_group($user_profile_post, $user_id);
                     }
 
-                    $this->session->set_flashdata('Ssuccess', 'Data recorded with success');
+                    $this->session->set_flashdata('Success', 'Data recorded with success');
                 } else {
                     $this->session->set_flashdata('error', 'Erro to record the data');
                 }

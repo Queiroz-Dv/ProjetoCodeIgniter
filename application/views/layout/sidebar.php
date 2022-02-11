@@ -73,7 +73,7 @@
           <span>Users</span></a>
       </li>
       <li class="nav-item">
-          <a title='Data System Manager' class="nav-link" href="<?php echo base_url('manager_system'); ?>">
+          <a title='Data System Manager' class="nav-link" href="<?php echo base_url('systems'); ?>">
           <i class="fas fa-fw fa-database"></i>
           <span>System</span></a>
       </li>
