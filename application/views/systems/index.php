@@ -59,7 +59,7 @@
 
                         <div class="col-md-3">
                             <label>Employer Identification</label>
-                            <input type="text" class="form-control form-control-user" name="systems_ein" placeholder="Employer Identification Number" value="<?php echo $systems->systems_ein; ?>">
+                            <input type="text" class="form-control form-control-user cnpj" name="systems_ein" placeholder="Employer Identification Number" value="<?php echo $systems->systems_ein; ?>">
                             <?php echo form_error('systems_ein', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
 
@@ -73,13 +73,13 @@
                     <div class="form-group row mb-3">
                         <div class="col-md-3">
                             <label>Telephone</label>
-                            <input type="text" class="form-control form-control-user" name="systems_telephone" placeholder="Telephone" value="<?php echo $systems->systems_telephone; ?>">
+                            <input type="text" class="form-control form-control-user sp_celphones" name="systems_telephone" placeholder="Telephone" value="<?php echo $systems->systems_telephone; ?>">
                             <?php echo form_error('systems_telephone', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
 
                         <div class="col-md-3">
                             <label>Mobile Phone</label>
-                            <input type="text" class="form-control form-control-user" name="systems_mobile_phone" placeholder="Mobile Phone" value="<?php echo $systems->systems_mobile_phone; ?>">
+                            <input type="text" class="form-control form-control-user sp_celphones" name="systems_mobile_phone" placeholder="Mobile Phone" value="<?php echo $systems->systems_mobile_phone; ?>">
                             <?php echo form_error('systems_mobile_phone', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
 
@@ -105,7 +105,7 @@
 
                         <div class="col-md-2">
                             <label>Zip Code</label>
-                            <input type="text" class="form-control form-control-user" name="systems_zip_code" placeholder="Zip Code" value="<?php echo $systems->systems_zip_code; ?>">
+                            <input type="text" class="form-control form-control-user cep" name="systems_zip_code" placeholder="Zip Code" value="<?php echo $systems->systems_zip_code; ?>">
                             <?php echo form_error('systems_zip_code', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
 
@@ -123,7 +123,7 @@
 
                         <div class="col-md-2">
                             <label>State</label>
-                            <input type="text" class="form-control form-control-user" name="systems_state" placeholder="State" value="<?php echo $systems->systems_state; ?>">
+                            <input type="text" class="form-control form-control-user uf" name="systems_state" placeholder="State" value="<?php echo $systems->systems_state; ?>">
                             <?php echo form_error('systems_state', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
                     </div>

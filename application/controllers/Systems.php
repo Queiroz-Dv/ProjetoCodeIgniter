@@ -15,6 +15,10 @@ class Systems extends CI_Controller {
     public function index() {
         $data = array(
             'title' => 'Edit system informantion',
+            'scripts'=> array(
+                'vendor/mask/jquery.mask.min.js',
+                'vendor/mask/app.js',
+            ),
             'systems' => $this->CoreModel->GetById('systems', array('systems_id' => 1))
         );
         $this->form_validation->set_rules('systems_company_name', '', 'required|min_length[10]|max_length[145]');
