@@ -19,7 +19,7 @@ class CoreModel extends CI_Model {
         if ($table && is_array($condition)) {
             $this->db->where($condition);
             $this->db->limit(1);
-            return $this->db->get()->row();
+            return $this->db->get($table)->row();
         } else {
             return FALSE;
         }

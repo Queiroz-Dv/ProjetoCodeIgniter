@@ -13,66 +13,127 @@
                 <li class="breadcrumb-item"><a href="<?php echo base_url('/'); ?>">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
             </ol>
-        </nav>
+        </nav
+        <?php if ($message = $this->session->flashdata('success')): ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong><i class='fas far-fw fa-check'></i>&nbsp; &nbsp;<?php echo $message; ?></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($message = $this->session->flashdata('error')): ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong><i class='fas far-fw fa-exclamation-triangle'></i>&nbsp; &nbsp;<?php echo $message; ?></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
         <!-- DataTales Example -->
-        <div class="card shadow mb-4">
+        <div class="card shadow mb-5">
             <div class="card-body">
-                <form method="POST" name="form_edit">
-                    <div class="form-group row">
-                        <div class="col-md-4">
-                            <label>Name</label>
-                            <input type="text" class="form-control" name="first_name" placeholder="Your name" value="<?php echo $user->first_name; ?>">
-                             <?php echo form_error('first_name','<small class="form-text text-danger">','</small>'); ?>
+                <form class="user" method="POST" name="form_edit">
+
+                    <div class="form-group row mb-4">
+                        <div class="col-md-3">
+                            <label>Company Name</label>
+                            <input type="text" class="form-control form-control-user" name="systems_company_name" placeholder="Company Name" value="<?php echo $systems->systems_company_name; ?>">
+                            <?php echo form_error('systems_company_name', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
 
-                        <div class="col-md-4">
-                            <label>Last name</label>
-                            <input type="text" class="form-control" name="last_name" placeholder="Your last name" value="<?php echo $user->last_name; ?>">
-                                 <?php echo form_error('last_name','<small class="form-text text-danger">','</small>'); ?>
+                        <div class="col-md-3">
+                            <label>Trading Name</label>
+                            <input type="text" class="form-control form-control-user" name="systems_trading_name" placeholder="Trading Name" value="<?php echo $systems->systems_trading_name; ?>">
+                            <?php echo form_error('systems_trading_name', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
 
-                        <div class="col-md-4">
-                            <label>Username</label>
-                            <input type="text" class="form-control" name="username" placeholder="Your username" value="<?php echo $user->username; ?>">
-                                 <?php echo form_error('username','<small class="form-text text-danger">','</small>'); ?>
+                        <div class="col-md-3">
+                            <label>Employer Identification</label>
+                            <input type="text" class="form-control form-control-user" name="systems_ein" placeholder="Employer Identification Number" value="<?php echo $systems->systems_ein; ?>">
+                            <?php echo form_error('systems_ein', '<small class="form-text text-danger">', '</small>'); ?>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>State Registration</label>
+                            <input type="text" class="form-control form-control-user" name="systems_sr" placeholder="State Registration" value="<?php echo $systems->systems_sr; ?>">
+                            <?php echo form_error('systems_sr', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <div class="col-md-4">
-                            <label>E-mail&nbsp;(Login)</label>
-                            <input type="email" class="form-control" name="email" placeholder="Your e-mail" value="<?php echo $user->email; ?>">
-                                 <?php echo form_error('email','<small class="form-text text-danger">','</small>'); ?>
+                    <div class="form-group row mb-3">
+                        <div class="col-md-3">
+                            <label>Telephone</label>
+                            <input type="text" class="form-control form-control-user" name="systems_telephone" placeholder="Telephone" value="<?php echo $systems->systems_telephone; ?>">
+                            <?php echo form_error('systems_telephone', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
-                        <div class="col-md-4">
-                            <label>Active</label>
-                            <select class="form-control" name="active">
-                                <option value="0"<?php echo ($user->active == 0) ? 'selected' : '' ?>>No</option>
-                                <option value="1"<?php echo ($user->active == 1) ? 'selected' : '' ?>>Yes</option>
-                            </select>
+
+                        <div class="col-md-3">
+                            <label>Mobile Phone</label>
+                            <input type="text" class="form-control form-control-user" name="systems_mobile_phone" placeholder="Mobile Phone" value="<?php echo $systems->systems_mobile_phone; ?>">
+                            <?php echo form_error('systems_mobile_phone', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
-                        <div class="col-md-4">
-                            <label>Profile Access</label>
-                            <select class="form-control" name="user_profile">
-                                <option value="2"<?php echo ($user_profile->id == 2) ? 'selected' : '' ?>>Employee</option>
-                                <option value="1"<?php echo ($user_profile->id == 1) ? 'selected' : '' ?>>Administrator</option>
-                            </select>
+
+                        <div class="col-md-3">
+                            <label>Site</label>
+                            <input type="text" class="form-control form-control-user" name="systems_site_url" placeholder="Site" value="<?php echo $systems->systems_site_url; ?>">
+                            <?php echo form_error('systems_site_url', '<small class="form-text text-danger">', '</small>'); ?>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Email</label>
+                            <input type="text" class="form-control form-control-user" name="systems_email" placeholder="Email" value="<?php echo $systems->systems_email; ?>">
+                            <?php echo form_error('systems_email', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                            <label>Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Your password">
-                                  <?php echo form_error('password','<small class="form-text text-danger">','</small>'); ?>
+                    <div class="form-group row mb-3">
+                        <div class="col-md-3">
+                            <label>Address</label>
+                            <input type="text" class="form-control form-control-user" name="systems_address" placeholder="Address" value="<?php echo $systems->systems_address ?>">
+                            <?php echo form_error('systems_address', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
 
-                        <div class="col-md-6">
-                            <label>Confirm again</label>
-                            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm your password">
-                                <?php echo form_error('confirm_password','<small class="form-text text-danger">','</small>'); ?>
+                        <div class="col-md-2">
+                            <label>Zip Code</label>
+                            <input type="text" class="form-control form-control-user" name="systems_zip_code" placeholder="Zip Code" value="<?php echo $systems->systems_zip_code; ?>">
+                            <?php echo form_error('systems_zip_code', '<small class="form-text text-danger">', '</small>'); ?>
                         </div>
-                        <input type="hidden" name="user_id" value="<?php echo $user->id ?>">
+
+                        <div class="col-md-2">
+                            <label>Number</label>
+                            <input type="text" class="form-control form-control-user" name="systems_number" placeholder="Number" value="<?php echo $systems->systems_number; ?>">
+                            <?php echo form_error('systems_number', '<small class="form-text text-danger">', '</small>'); ?>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>City</label>
+                            <input type="text" class="form-control form-control-user" name="systems_city" placeholder="City" value="<?php echo $systems->systems_city; ?>">
+                            <?php echo form_error('systems_city', '<small class="form-text text-danger">', '</small>'); ?>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>State</label>
+                            <input type="text" class="form-control form-control-user" name="systems_state" placeholder="State" value="<?php echo $systems->systems_state; ?>">
+                            <?php echo form_error('systems_state', '<small class="form-text text-danger">', '</small>'); ?>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <div class="col-md-12">
+                            <label>Order and Service's Text</label>
+                            <textarea class="form-control form-control-user" name="systems_txt_service_order" placeholder="Type here..."><?php echo $systems->systems_txt_service_order ?></textarea>>
+                            <?php echo form_error('systems_txt_service_order', '<small class="form-text text-danger">', '</small>'); ?>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                 </form>
