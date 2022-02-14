@@ -1,10 +1,12 @@
 <?php
 
-defined('BASEPATH') OR exit('Action not allowed');
+defined('BASEPATH') or exit('Action not allowed');
 
-class Users extends CI_Controller {
+class Users extends CI_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         if (!$this->ion_auth->logged_in()) {
             redirect('login');
@@ -13,7 +15,8 @@ class Users extends CI_Controller {
     }
 
     //Show all users in a view  table
-    public function index() {
+    public function index()
+    {
 
         $data = array(
             'title' => 'Users Register',
@@ -27,15 +30,13 @@ class Users extends CI_Controller {
             ),
             'users' => $this->ion_auth->users()->result(),
         );
-        //echo '<pre>';
-        // print_r($this->input->post());
-        //exit();
         $this->load->view('layout/header', $data);
         $this->load->view('users/index');
         $this->load->view('layout/footer');
     }
 
-    public function add() {
+    public function add()
+    {
         $this->form_validation->set_rules('first_name', '', 'trim|required');
         $this->form_validation->set_rules('last_name', '', 'trim|required');
         $this->form_validation->set_rules('email', '', 'trim|required|valid_email|is_unique[users.email]');
@@ -57,10 +58,10 @@ class Users extends CI_Controller {
             $additional_data = $this->security->xss_clean($additional_data);
             $group = $this->security->xss_clean($group);
 
-//            echo '<pre>';
-//            print_r($additional_data);
-//            exit();
-//            
+            //            echo '<pre>';
+            //            print_r($additional_data);
+            //            exit();
+            //            
             if ($this->ion_auth->register($username, $password, $email, $additional_data, $group)) {
                 $this->session->set_flashdata('success', 'Data recorder successfuly');
             } else {
@@ -77,7 +78,8 @@ class Users extends CI_Controller {
         }
     }
 
-    public function edit($user_id = NULL) {
+    public function edit($user_id = NULL)
+    {
         if (!$user_id || !$this->ion_auth->user($user_id)->row()) {
             $this->session->set_flashdata('error', 'User not found');
             redirect('users');
@@ -90,14 +92,15 @@ class Users extends CI_Controller {
             $this->form_validation->set_rules('confirm_password', 'Confirm', 'matches[password]');
             if ($this->form_validation->run()) {
                 $data = elements(
-                        array(
-                            'first_name',
-                            'last_name',
-                            'email',
-                            'username',
-                            'active',
-                            'password'
-                        ), $this->input->post()
+                    array(
+                        'first_name',
+                        'last_name',
+                        'email',
+                        'username',
+                        'active',
+                        'password'
+                    ),
+                    $this->input->post()
                 );
 
                 $data = $this->security->xss_clean($data);
@@ -136,7 +139,8 @@ class Users extends CI_Controller {
         }
     }
 
-    public function del($user_id = NULL) {
+    public function del($user_id = NULL)
+    {
         if (!$user_id || !$this->ion_auth->user($user_id)->row()) {
             $this->session->set_flashdata('error', 'User not found');
             redirect('users');
@@ -156,7 +160,8 @@ class Users extends CI_Controller {
         }
     }
 
-    public function email_check($email) {
+    public function email_check($email)
+    {
         $user_id = $this->input->post('user_id');
 
         if ($this->CoreModel->GetById('users', array('email' => $email, 'id !=' => $user_id))) {
@@ -167,7 +172,8 @@ class Users extends CI_Controller {
         }
     }
 
-    public function username_check($username) {
+    public function username_check($username)
+    {
         $user_id = $this->input->post('user_id');
 
         if ($this->CoreModel->GetById('users', array('username' => $username, 'id !=' => $user_id))) {
@@ -177,5 +183,4 @@ class Users extends CI_Controller {
             return TRUE;
         }
     }
-
 }

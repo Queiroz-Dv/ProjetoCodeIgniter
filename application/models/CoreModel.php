@@ -1,10 +1,12 @@
 <?php
 
-defined('BASEPATH') OR exit('Action not allowed');
+defined('BASEPATH') or exit('Action not allowed');
 
-class CoreModel extends CI_Model {
+class CoreModel extends CI_Model
+{
 
-    public function GetAll($table = NULL, $condition = NULL) {
+    public function GetAll($table = NULL, $condition = NULL)
+    {
         if ($table) {
             if (is_array($condition)) {
                 $this->db->where($condition);
@@ -15,7 +17,8 @@ class CoreModel extends CI_Model {
         }
     }
 
-    public function GetById($table = NULL, $condition = NULL) {
+    public function GetById($table = NULL, $condition = NULL)
+    {
         if ($table && is_array($condition)) {
             $this->db->where($condition);
             $this->db->limit(1);
@@ -25,7 +28,8 @@ class CoreModel extends CI_Model {
         }
     }
 
-    public function Insert($table = NULL, $data = NULL, $get_last_id = NULL) {
+    public function Insert($table = NULL, $data = NULL, $get_last_id = NULL)
+    {
         if ($table && is_array($data)) {
             $this->db->insert($table, $data);
             if ($get_last_id) {
@@ -37,11 +41,11 @@ class CoreModel extends CI_Model {
                 $this->session->set_flashdata('error', 'Error! Data were not recorded in our database');
             }
         } else {
-            
         }
     }
 
-    public function Update($table = NULL, $data = NULL, $condition = NULL) {
+    public function Update($table = NULL, $data = NULL, $condition = NULL)
+    {
 
         if ($table && is_array($data) && is_array($condition)) {
             if ($this->db->update($table, $data, $condition)) {
@@ -54,7 +58,8 @@ class CoreModel extends CI_Model {
         }
     }
 
-    public function Delete($table = NULL, $condition = NULL) {
+    public function Delete($table = NULL, $condition = NULL)
+    {
         $this->db->db_debug = FALSE;
 
         if ($table && is_array($condition)) {
@@ -69,12 +74,11 @@ class CoreModel extends CI_Model {
                     }
                 }
             } else {
-                $this->session->set - flashdata('Success!', 'Register was exclude!');
+                $this->session->set->flashdata('Success!', 'Register was exclude!');
             }
             $this->db->db_debug = TRUE;
         } else {
             return FALSE;
         }
     }
-
 }
