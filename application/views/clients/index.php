@@ -55,9 +55,9 @@
                                 <th>#</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>Employee Identification</th>
-                                <th>Client Active</th>
-                                <th class="text-center">Active</th>
+                                <th>EIN</th>
+                                <th>Client Type</th>
+                                <th class="text-center">Client Active</th>
                                 <th class="text-right sorting_asc_disabled sorting_desc_disabled pr-2">Actions</th>
                             </tr>
                         </thead>

@@ -41,9 +41,8 @@ class Clients extends CI_Controller
       $this->form_validation->set_rules('clients_first_name', '', 'trim|required|min_length[4]|max_length[45]');
       $this->form_validation->set_rules('clients_last_name', '', 'trim|required|min_length[4]|max_length[145]');
       $this->form_validation->set_rules('clients_birthday', '', 'required');
-      $this->form_validation->set_rules('clients_birthday', '', 'trim|required|min_length[4]|max_length[145]');
       $this->form_validation->set_rules('clients_cpf_cnpj', '', 'trim|required|exact_length[18]');
-      $this->form_validation->set_rules('clients_rg_ie', '', 'trim|required|max_length[20]');
+      $this->form_validation->set_rules('clients_sr_ie', '', 'trim|required|max_length[20]');
       $this->form_validation->set_rules('clients_email', '', 'trim|required|valid_email|max_length[20]');
       $this->form_validation->set_rules('clients_telephone', '', 'trim|max_length[14]');
       $this->form_validation->set_rules('clients_phone', '', 'trim|max_length[15]');
@@ -69,9 +68,6 @@ class Clients extends CI_Controller
           ),
           'client' => $this->CoreModel->GetById('clients', array('clients_id' => $clients_id))
         );
-        echo '<pre>';
-        print_r($data['client']);
-        exit();
         $this->load->view('layout/header', $data);
         $this->load->view('clients/edit');
         $this->load->view('layout/footer');
