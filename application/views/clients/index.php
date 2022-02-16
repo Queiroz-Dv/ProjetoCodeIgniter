@@ -7,7 +7,6 @@
 
     <!-- Begin Page Content -->
     <div class="container-fluid">
-
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo base_url('/'); ?>">Home</a></li>
@@ -55,7 +54,7 @@
                                 <th>#</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>EIN</th>
+                                <th>NIN</th>
                                 <th>Client Type</th>
                                 <th class="text-center">Client Active</th>
                                 <th class="text-right sorting_asc_disabled sorting_desc_disabled pr-2">Actions</th>
@@ -67,7 +66,7 @@
                                     <td><?php echo $client->clients_id ?></td>
                                     <td><?php echo $client->clients_first_name ?></td>
                                     <td><?php echo $client->clients_last_name ?></td>
-                                    <td><?php echo $client->clients_cpf_cnpj ?></td>
+                                    <td><?php echo $client->clients_nin_tin ?></td>
                                     <td><?php echo ($client->clients_type == 1 ? 'Natural Person' : 'Legal Person') ?></td>
                                     <td class="text-center pr-4"><?php echo ($client->clients_active == 1 ? '<span class="badge badge-info btn-sm">Yes</span>' : '<span class="badge badge-warning btn-sm">No</span>') ?></td>
                                     <td class="text-right">

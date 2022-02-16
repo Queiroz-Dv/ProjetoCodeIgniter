@@ -6,7 +6,7 @@
     <?php $this->load->view('layout/navbar'); ?>
 
     <!-- Begin Page Content -->
-    < class="container-fluid">
+    <div class="container-fluid">
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -25,7 +25,7 @@
                             <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-alarm-fill" viewBox="0 0 16 16">
                                     <path d="M6 .5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H9v1.07a7.001 7.001 0 0 1 3.274 12.474l.601.602a.5.5 0 0 1-.707.708l-.746-.746A6.97 6.97 0 0 1 8 16a6.97 6.97 0 0 1-3.422-.892l-.746.746a.5.5 0 0 1-.707-.708l.602-.602A7.001 7.001 0 0 1 7 2.07V1h-.5A.5.5 0 0 1 6 .5zm2.5 5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z" />
                                 </svg></i>&nbsp;&nbsp;Last Update:&nbsp;
-                        </strong><?php echo $client->clients_change_date;?>
+                        </strong><?php echo format_date_with_hour($client->clients_change_date); ?>
                     </p>
                     <?php /* FIELDSET 1*/ ?>
                     <fieldset class="mt-4 border p-2">
@@ -51,7 +51,7 @@
                                 <?php echo form_error('clients_last_name', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label>Birthday</label>
                                 <input type="text" class="form-control form-control-user-date" name="clients_birthday" value="<?php echo $client->clients_birthday; ?>">
                                 <?php echo form_error('clients_birthday', '<small class="form-text text-danger">', '</small>'); ?>
@@ -61,16 +61,14 @@
                         <?php /*Second row's personal fieldset*/ ?>
                         <div class="form-group row mb-3">
 
-                            <div class="col-md-3">
-                                <label>NIN</label>
-                                <input type="text" class="form-control form-control-user" name="clients_cpf_cnpj" placeholder="Client's EIN" value="<?php echo $client->clients_cpf_cnpj; ?>">
-                                <?php echo form_error('clients_cpf_cnpj', '<small class="form-text text-danger">', '</small>'); ?>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label>Identification</label>
-                                <input type="text" class="form-control form-control-user" name="clients_sr_ie" placeholder="Client's Identification" value="<?php echo $client->clients_sr_ie; ?>">
-                                <?php echo form_error('clients_sr_ie', '<small class="form-text text-danger">', '</small>'); ?>
+                            <div class="col-md-6">
+                                <?php if ($client->clients_type == 1) : ?>
+                                    <label>NIN</label>
+                                <?php else : ?>
+                                    <label>TIN</label>
+                                <?php endif; ?>
+                                <input type="text" class="form-control form-control-user nin tin" name="clients_nin_tin" placeholder="Client's NIN | TIN" value="<?php echo $client->clients_nin_tin; ?>">
+                                <?php echo form_error('clients_nin_tin', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
 
                             <div class="col-md-6">
@@ -87,13 +85,13 @@
 
                             <div class="col-md-6">
                                 <label>Telephone</label>
-                                <input type="text" class="form-control form-control-user" name="clients_telephone" placeholder="Client's telephone" value="<?php echo $client->clients_telephone; ?>">
+                                <input type="text" class="form-control form-control-user phone_with_ddd" name="clients_telephone" placeholder="Client's telephone" value="<?php echo $client->clients_telephone; ?>">
                                 <?php echo form_error('clients_telephone', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
 
                             <div class="col-md-6">
                                 <label>Phone</label>
-                                <input type="text" class="form-control form-control-user" name="clients_phone" placeholder=" Client's mobile phone" value="<?php echo $client->clients_phone; ?>">
+                                <input type="text" class="form-control form-control-user phone_with_ddd" name="clients_phone" placeholder=" Client's mobile phone" value="<?php echo $client->clients_phone; ?>">
                                 <?php echo form_error('clients_phone', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
 
@@ -139,20 +137,20 @@
                             </div>
 
                             <div class="col-md-2">
-                                <label>Zip-Code</label>
-                                <input type="text" class="form-control form-control-user" name="clients_zip_code" placeholder="Zip-Code" value="<?php echo $client->clients_zip_code; ?>">
-                                <?php echo form_error('clients_zip_code', '<small class="form-text text-danger">', '</small>'); ?>
+                                <label>Post-Code</label>
+                                <input type="text" class="form-control form-control-user" name="clients_post_code" placeholder="Post-Code" value="<?php echo $client->clients_post_code; ?>">
+                                <?php echo form_error('clients_post_code', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
 
                             <div class="col-md-5">
                                 <label>City</label>
-                                <input type="text" class="form-control form-control-user" name="clients_city" placeholder="City" value="<?php echo $client->clients_city; ?>">
+                                <input type="text" class="form-control form-control-user" name="clients_city" placeholder="Client's city" value="<?php echo $client->clients_city; ?>">
                                 <?php echo form_error('clients_city', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
 
                             <div class="col-md-1">
                                 <label>State</label>
-                                <input type="text" class="form-control form-control-user" name="clients_state" placeholder="State" value="<?php echo $client->clients_state; ?>">
+                                <input type="text" class="form-control form-control-user st" name="clients_state" placeholder="ST" value="<?php echo $client->clients_state; ?>">
                                 <?php echo form_error('clients_state', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
                         </div>

@@ -41,12 +41,11 @@ class Clients extends CI_Controller
       $this->form_validation->set_rules('clients_first_name', '', 'trim|required|min_length[4]|max_length[45]');
       $this->form_validation->set_rules('clients_last_name', '', 'trim|required|min_length[4]|max_length[145]');
       $this->form_validation->set_rules('clients_birthday', '', 'required');
-      $this->form_validation->set_rules('clients_cpf_cnpj', '', 'trim|required|exact_length[18]');
-      $this->form_validation->set_rules('clients_sr_ie', '', 'trim|required|max_length[20]');
+      $this->form_validation->set_rules('clients_nin_tin', '', 'trim|required|exact_length[18]');
       $this->form_validation->set_rules('clients_email', '', 'trim|required|valid_email|max_length[20]');
       $this->form_validation->set_rules('clients_telephone', '', 'trim|max_length[14]');
       $this->form_validation->set_rules('clients_phone', '', 'trim|max_length[15]');
-      $this->form_validation->set_rules('clients_zip_code', '', 'trim|required|exact_length[9]');
+      $this->form_validation->set_rules('clients_post_code', '', 'trim|required|exact_length[9]');
       $this->form_validation->set_rules('clients_address', '', 'trim|max_length[155]');
       $this->form_validation->set_rules('clients_number', '', 'trim|required|max_length[20]');
       $this->form_validation->set_rules('clients_district', '', 'trim|required|max_length[45]');

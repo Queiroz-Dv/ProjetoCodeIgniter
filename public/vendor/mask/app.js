@@ -1,13 +1,13 @@
 
 $(function () {
    // $('.money').mask('#.##0,00', {reverse: true});
-    $('.money2').mask('#,##0.00', {reverse: true});
-    $('.cep').mask('00000-000');
-    $('.cpf').mask('000.000.000-00', {reverse: true});
-    $('.pis').mask('000.00000.00-0', {reverse: true});
-    $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
-    $('.phone_with_ddd').mask('(00) 0000-0000');
-    $('.uf').mask('AA');
+  //  $('.money2').mask('#,##0.00', {reverse: true});
+    $('.post_code').mask('0000-000');
+    $('.nin').mask('000-000-0000', {reverse: true});
+  //  $('.pis').mask('000.00000.00-0', {reverse: true});
+    $('.tin').mask('000-000-000', {reverse: true});
+    $('.phone_with_ddd').mask('(00) 0000-000000');
+    $('.st').mask('AAA');
     $('.selectonfocus').mask("00000000", {selectOnFocus: true});
 
     var SPMaskBehavior = function (val) {
