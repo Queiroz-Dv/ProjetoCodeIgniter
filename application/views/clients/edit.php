@@ -20,6 +20,13 @@
             <div class="card-body">
 
                 <form class="user" method="POST" name="form_edit">
+                    <p>
+                        <strong>
+                            <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-alarm-fill" viewBox="0 0 16 16">
+                                    <path d="M6 .5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H9v1.07a7.001 7.001 0 0 1 3.274 12.474l.601.602a.5.5 0 0 1-.707.708l-.746-.746A6.97 6.97 0 0 1 8 16a6.97 6.97 0 0 1-3.422-.892l-.746.746a.5.5 0 0 1-.707-.708l.602-.602A7.001 7.001 0 0 1 7 2.07V1h-.5A.5.5 0 0 1 6 .5zm2.5 5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z" />
+                                </svg></i>&nbsp;&nbsp;Last Update:&nbsp;
+                        </strong><?php echo $client->clients_change_date;?>
+                    </p>
                     <?php /* FIELDSET 1*/ ?>
                     <fieldset class="mt-4 border p-2">
                         <legend class="font-small">
@@ -32,13 +39,13 @@
                         <?php /*First row's personal fieldset*/ ?>
                         <div class="form-group row mb-3">
 
-                            <div class="col-md-5">
+                            <div class="col-md-3">
                                 <label>Name</label>
                                 <input type="text" class="form-control form-control-user" name="clients_first_name" placeholder="Client's first name" value="<?php echo $client->clients_first_name; ?>">
                                 <?php echo form_error('clients_first_name', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <label>Last Name</label>
                                 <input type="text" class="form-control form-control-user" name="clients_last_name" placeholder="Client's last name" value="<?php echo $client->clients_last_name; ?>">
                                 <?php echo form_error('clients_last_name', '<small class="form-text text-danger">', '</small>'); ?>
@@ -46,7 +53,7 @@
 
                             <div class="col-md-2">
                                 <label>Birthday</label>
-                                <input type="text" class="form-control form-control-user" name="clients_birthday" value="<?php echo $client->clients_birthday; ?>">
+                                <input type="text" class="form-control form-control-user-date" name="clients_birthday" value="<?php echo $client->clients_birthday; ?>">
                                 <?php echo form_error('clients_birthday', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
                         </div>
@@ -159,7 +166,7 @@
                         <div>
                             <div class="col-md-4">
                                 <label>Client Activate</label>
-                                <select class="form-control" name="clients_active">
+                                <select class="custom-select" name="clients_active">
                                     <option value="0" <?php echo ($client->clients_active == 0 ? 'selected' : ''); ?>>No</option>
                                     <option value="1" <?php echo ($client->clients_active == 1 ? 'selected' : ''); ?>>Yes</option>
                                 </select>
