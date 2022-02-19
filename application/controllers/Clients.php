@@ -3,6 +3,8 @@ defined('BASEPATH') or exit('Acion not allowed');
 
 use order\exceptions\TINValidationException;
 use InvalidArgumentException;
+use order\TIN\Algo\TINAlgorithm;
+use order\TIN\Algo;
 
 class Clients extends CI_Controller
 {
@@ -201,6 +203,7 @@ class Clients extends CI_Controller
     if (!class_exists($class)) {
       throw new InvalidArgumentException("Algorithm '$class' was not found.");
     }
+    return new $class;
   }
 }
 
