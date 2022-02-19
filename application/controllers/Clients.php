@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') or exit('Acion not allowed');
 
+use order\exceptions\TINValidationException;
+use InvalidArgumentException;
+
 class Clients extends CI_Controller
 {
   public function __construct()
@@ -42,11 +45,12 @@ class Clients extends CI_Controller
       $this->form_validation->set_rules('clients_last_name', '', 'trim|required|min_length[4]|max_length[145]');
       $this->form_validation->set_rules('clients_birthday', '', 'required');
       $clients_type = $this->input->post('clients_type');
-      // if ($clients_type == 1) {
-      //   $this->form_validation->set_rules('clients_nin', '', 'trim|required|exact_length[18]|callback_validate_nin');
-      // } else {
-      //   $this->form_validation->set_rules('clients_tin', '', 'trim|required|exact_length[18]|callback_validate_tin');
-      // }
+      if ($clients_type == 1) {
+        $this->form_validation->set_rules('clients_nin', '', 'trim|required|exact_length[18]|callback_valid_nin');
+      } else {
+        $this->form_validation->set_rules('clients_tin', '', 'trim|required|exact_length[18]|callback_valid_tin');
+      }
+      $this->form_validation->set_rules('clients_country_code', '', 'trim|required|max_length[5]');
       $this->form_validation->set_rules('clients_email', '', 'trim|required|valid_email|max_length[20]|callback_check_email');
       if (!empty($this->input->post('clients_telefone'))) {
         $this->form_validation->set_rules('clients_telephone', '', 'trim|max_length[14]|callback_check_telephone');
@@ -139,7 +143,65 @@ class Clients extends CI_Controller
     }
   }
 
-}
-class TINValid{
+  public static function valid_tin($country_code, $tin)
+  {
+    try {
+      self::validateTIN($country_code, $tin);
+      return TRUE;
+    } catch (TINValidationException $ex) {
+      return FALSE;
+    }
+  }
+  public static function validateTIN($country_code,$tin)
+  {
+    $inst = self::getAlgoForCountry($country_code);
+    $statusCode = $inst->isValid($tin);
 
+    if ($statusCode !== 0) {
+      $message = self::getMessageForStatusCode($statusCode);
+      throw new TINValidationException($message, $statusCode);
+    }
+  }
+
+  public static function isCountrySupported($country_code)
+  {
+    try {
+      self::getAlgoForCountry($country_code);
+      return TRUE;
+    } catch (InvalidArgumentException $ex) {
+      return false;
+    }
+  }
+
+  protected static function getMessageForStatusCode($statusCode)
+  {
+    switch ($statusCode) {
+      case 0:
+        return "Valid";
+      case -1:
+        return "NoInformantion";
+      case 2:
+        return "No Syntax Checker";
+      case 1:
+        return "Invalid Syntax";
+      case 4:
+        return "Invalid Length";
+      case 3:
+        return "Invalid Pattern";
+      default:
+        return "Default";
+    }
+  }
+
+  protected static function getAlgoForCountry($country_code){
+    if (strlen($country_code)!=2) {
+      throw new InvalidArgumentException("Country code should be 2 chars long.");
+    }
+    $class = "order\\Tin\\Algo".strtoupper($country_code). "Algorithm";
+    if (!class_exists($class)) {
+      throw new InvalidArgumentException("Algorithm '$class' was not found.");
+    }
+  }
 }
+
+

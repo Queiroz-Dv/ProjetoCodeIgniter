@@ -71,8 +71,6 @@
                                     <input type="text" class="form-control form-control-user tin" name="clients_tin" placeholder="Client's TIN" value="<?php echo $client->clients_nin_tin; ?>">
                                     <?php echo form_error('clients_nin_tin', '<small class="form-text text-danger">', '</small>'); ?>
                                 <?php endif; ?>
-                               
-                                <?php echo form_error('clients_nin_tin', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
 
                             <div class="col-md-6">
@@ -113,10 +111,16 @@
                         </legend>
                         <?php /*First row's address fieldset*/ ?>
                         <div class="form-group row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label>Address</label>
                                 <input type="text" class="form-control form-control-user" name="clients_address" placeholder="Address" value="<?php echo $client->clients_address; ?>">
                                 <?php echo form_error('clients_address', '<small class="form-text text-danger">', '</small>'); ?>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label>Country Code</label>
+                                <input type="text" class="form-control form-control-user" name="clients_country_code" placeholder="C. Code" value="<?php echo $client->clients_country_code; ?>">
+                                <?php echo form_error('clients_country_code', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
 
                             <div class="col-md-2">
