@@ -41,10 +41,20 @@ class Clients extends CI_Controller
       $this->form_validation->set_rules('clients_first_name', '', 'trim|required|min_length[4]|max_length[45]');
       $this->form_validation->set_rules('clients_last_name', '', 'trim|required|min_length[4]|max_length[145]');
       $this->form_validation->set_rules('clients_birthday', '', 'required');
-      $this->form_validation->set_rules('clients_nin_tin', '', 'trim|required|exact_length[18]');
-      $this->form_validation->set_rules('clients_email', '', 'trim|required|valid_email|max_length[20]');
-      $this->form_validation->set_rules('clients_telephone', '', 'trim|max_length[14]');
-      $this->form_validation->set_rules('clients_phone', '', 'trim|max_length[15]');
+      $clients_type = $this->input->post('clients_type');
+      // if ($clients_type == 1) {
+      //   $this->form_validation->set_rules('clients_nin', '', 'trim|required|exact_length[18]|callback_validate_nin');
+      // } else {
+      //   $this->form_validation->set_rules('clients_tin', '', 'trim|required|exact_length[18]|callback_validate_tin');
+      // }
+      $this->form_validation->set_rules('clients_email', '', 'trim|required|valid_email|max_length[20]|callback_check_email');
+      if (!empty($this->input->post('clients_telefone'))) {
+        $this->form_validation->set_rules('clients_telephone', '', 'trim|max_length[14]|callback_check_telephone');
+      }
+
+      if (!empty($this->input->post('clients_phone'))) {
+        $this->form_validation->set_rules('clients_phone', '', 'trim|max_length[14]|callback_check_phone');
+      }
       $this->form_validation->set_rules('clients_post_code', '', 'trim|required|exact_length[9]');
       $this->form_validation->set_rules('clients_address', '', 'trim|max_length[155]');
       $this->form_validation->set_rules('clients_number', '', 'trim|required|max_length[20]');
@@ -55,9 +65,31 @@ class Clients extends CI_Controller
       $this->form_validation->set_rules('clients_obs', '', 'max_length[500]');
 
       if ($this->form_validation->run()) {
-        echo '<pre>';
-        print_r($this->input->post());
-        exit();
+        $data = elements(
+          array(
+            'clients_first_name',
+            'clients_last_name',
+            'clients_birthday',
+            'clients_email',
+            'clients_telephone',
+            'clients_phone',
+            'clients_post_code',
+            'clients_address',
+            'clients_number',
+            'clients_district',
+            'clients_city',
+            'clients_state',
+            'clients_active',
+            'clients_obs',
+            'clients_type',
+          ),
+          $this->input->post(),
+        );
+
+        /* if ($clients_type == 1) {
+        } else {
+          # code...
+        }*/
       } else {
         $data = array(
           'title' => 'Update Clients',
@@ -73,4 +105,41 @@ class Clients extends CI_Controller
       }
     }
   }
+
+  public function check_email($client_email)
+  {
+    $clients_id = $this->input->post('clients_id');
+    if ($this->coreModel->GetById('clients', array('check_email' => $client_email, 'client_id!=' => $clients_id))) {
+      $this->form_validation->set_message('check_email', 'Your email already exists');
+      return FALSE;
+    } else {
+      return TRUE;
+    }
+  }
+
+  public function check_telephone($client_telephone)
+  {
+    $clients_id = $this->input->post('clients_id');
+    if ($this->coreModel->GetById('clients', array('check_telephone' => $client_telephone, 'client_id!=' => $clients_id))) {
+      $this->form_validation->set_message('check_telephone', 'This telephone already exists');
+      return FALSE;
+    } else {
+      return TRUE;
+    }
+  }
+
+  public function check_phone($client_phone)
+  {
+    $clients_id = $this->input->post('clients_id');
+    if ($this->coreModel->GetById('clients', array('check_phone' => $client_phone, 'client_id!=' => $clients_id))) {
+      $this->form_validation->set_message('check_phone', 'This phone already exists');
+      return FALSE;
+    } else {
+      return TRUE;
+    }
+  }
+
+}
+class TINValid{
+
 }

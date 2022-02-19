@@ -64,10 +64,14 @@
                             <div class="col-md-6">
                                 <?php if ($client->clients_type == 1) : ?>
                                     <label>NIN</label>
+                                    <input type="text" class="form-control form-control-user nin" name="clients_nin" placeholder="Client's NIN" value="<?php echo $client->clients_nin_tin; ?>">
+                                    <?php echo form_error('clients_nin_tin', '<small class="form-text text-danger">', '</small>'); ?>
                                 <?php else : ?>
                                     <label>TIN</label>
+                                    <input type="text" class="form-control form-control-user tin" name="clients_tin" placeholder="Client's TIN" value="<?php echo $client->clients_nin_tin; ?>">
+                                    <?php echo form_error('clients_nin_tin', '<small class="form-text text-danger">', '</small>'); ?>
                                 <?php endif; ?>
-                                <input type="text" class="form-control form-control-user nin tin" name="clients_nin_tin" placeholder="Client's NIN | TIN" value="<?php echo $client->clients_nin_tin; ?>">
+                               
                                 <?php echo form_error('clients_nin_tin', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
 
