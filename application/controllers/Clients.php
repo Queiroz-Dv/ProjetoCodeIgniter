@@ -1,11 +1,6 @@
 <?php
 defined('BASEPATH') or exit('Acion not allowed');
 
-use order\exceptions\TINValidationException;
-use InvalidArgumentException;
-use order\TIN\Algo\TINAlgorithm;
-use order\TIN\Algo;
-
 class Clients extends CI_Controller
 {
   public function __construct()
@@ -144,67 +139,4 @@ class Clients extends CI_Controller
       return TRUE;
     }
   }
-
-  public static function valid_tin($country_code, $tin)
-  {
-    try {
-      self::validateTIN($country_code, $tin);
-      return TRUE;
-    } catch (TINValidationException $ex) {
-      return FALSE;
-    }
-  }
-  public static function validateTIN($country_code,$tin)
-  {
-    $inst = self::getAlgoForCountry($country_code);
-    $statusCode = $inst->isValid($tin);
-
-    if ($statusCode !== 0) {
-      $message = self::getMessageForStatusCode($statusCode);
-      throw new TINValidationException($message, $statusCode);
-    }
-  }
-
-  public static function isCountrySupported($country_code)
-  {
-    try {
-      self::getAlgoForCountry($country_code);
-      return TRUE;
-    } catch (InvalidArgumentException $ex) {
-      return false;
-    }
-  }
-
-  protected static function getMessageForStatusCode($statusCode)
-  {
-    switch ($statusCode) {
-      case 0:
-        return "Valid";
-      case -1:
-        return "NoInformantion";
-      case 2:
-        return "No Syntax Checker";
-      case 1:
-        return "Invalid Syntax";
-      case 4:
-        return "Invalid Length";
-      case 3:
-        return "Invalid Pattern";
-      default:
-        return "Default";
-    }
-  }
-
-  protected static function getAlgoForCountry($country_code){
-    if (strlen($country_code)!=2) {
-      throw new InvalidArgumentException("Country code should be 2 chars long.");
-    }
-    $class = "order\\Tin\\Algo".strtoupper($country_code). "Algorithm";
-    if (!class_exists($class)) {
-      throw new InvalidArgumentException("Algorithm '$class' was not found.");
-    }
-    return new $class;
-  }
 }
-
-
