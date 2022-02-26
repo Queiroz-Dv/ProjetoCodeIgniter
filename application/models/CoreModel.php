@@ -1,80 +1,81 @@
 <?php
 
-defined('BASEPATH') or exit('Action not allowed');
+defined('BASEPATH') or exit('Ação não permitida');
 
 class CoreModel extends CI_Model
 {
 
-    public function GetAll($table = NULL, $condition = NULL)
+    public function GetAll($tabela = NULL, $condicao = NULL)
     {
-        if ($table) {
-            if (is_array($condition)) {
-                $this->db->where($condition);
+        if ($tabela) {
+            if (is_array($condicao)) {
+                $this->db->where($condicao);
             }
-            return $this->db->get($table)->result();
+            return $this->db->get($tabela)->result();
         } else {
             return FALSE;
         }
     }
 
-    public function GetById($table = NULL, $condition = NULL)
+    public function GetById($tabela = NULL, $condicao = NULL)
     {
-        if ($table && is_array($condition)) {
-            $this->db->where($condition);
+        if ($tabela && is_array($condicao)) {
+            $this->db->where($condicao);
             $this->db->limit(1);
-            return $this->db->get($table)->row();
+            return $this->db->get($tabela)->row();
         } else {
             return FALSE;
         }
     }
 
-    public function Insert($table = NULL, $data = NULL, $get_last_id = NULL)
+    public function Insert($tabela = NULL, $data = NULL, $get_last_id = NULL)
     {
-        if ($table && is_array($data)) {
-            $this->db->insert($table, $data);
+        if ($tabela && is_array($data)) {
+            $this->db->insert($tabela, $data);
             if ($get_last_id) {
                 $this->session->set_userdata('last_id', $this->db->insert_id());
             }
             if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Success! Data recorded.');
+                $this->session->set_flashdata('sucesso', 'Dados salvos com sucesso');
             } else {
-                $this->session->set_flashdata('error', 'Error! Data were not recorded in our database');
+                $this->session->set_flashdata('error', 'Error ao salvar dados! ');
             }
         } else {
         }
     }
 
-    public function Update($table = NULL, $data = NULL, $condition = NULL)
+    public function Update($tabela = NULL, $data = NULL, $condicao = NULL)
     {
 
-        if ($table && is_array($data) && is_array($condition)) {
-            if ($this->db->update($table, $data, $condition)) {
-                $this->session->set_flashdata('Success!', 'Data recorded');
+        if ($tabela && is_array($data) && is_array($condicao)) {
+            if ($this->db->update($tabela, $data, $condicao)) {
+                $this->session->set_flashdata('sucesso!', 'Dados salvo com sucesso');
             } else {
-                $this->session->set_flashdata('error', 'Data were not recorded in our database');
+                $this->session->set_flashdata('error', 'Erro ao salvar dados');
             }
         } else {
             return FALSE;
         }
     }
 
-    public function Delete($table = NULL, $condition = NULL)
+    public function Delete($tabela = NULL, $condicao = NULL)
     {
         $this->db->db_debug = FALSE;
 
-        if ($table && is_array($condition)) {
-            $status = $this->db->delete($table, $condition);
+        if ($tabela && is_array($condicao)) {
+            $this->db->db_debug = FALSE;
+            $status = $this->db->delete($tabela, $condicao);
             $error = $this->db->error();
 
             if (!$status) {
                 foreach ($error as $code) {
 
                     if ($code == 1451) {
-                        $this->session->set_flashdata('Error', 'This register cannot exclude because it is using for another table. ');
+                        $this->session->set_flashdata('error', 'Este registro não pode ser excluído, pois está sendo usado em outra tabela. ');
                     }
                 }
             } else {
-                $this->session->set->flashdata('Success!', 'Register was exclude!');
+                $this->session->set->flashdata('sucesso!', 'Registro excluído!');
             }
             $this->db->db_debug = TRUE;
         } else {
