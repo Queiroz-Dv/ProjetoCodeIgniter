@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('Action not allowed');
 
-class Users extends CI_Controller
+class Usuarios extends CI_Controller
 {
 
     public function __construct()
@@ -11,7 +11,6 @@ class Users extends CI_Controller
         if (!$this->ion_auth->logged_in()) {
             redirect('login');
         }
-        //Define if there is a session
     }
 
     //Show all users in a view  table
@@ -19,7 +18,7 @@ class Users extends CI_Controller
     {
 
         $data = array(
-            'title' => 'Users Register',
+            'titulo' => 'Usuários Cadastrados',
             'styles' => array(
                 'vendor/datatables/dataTables.bootstrap4.min.css',
             ),
@@ -28,10 +27,10 @@ class Users extends CI_Controller
                 'vendor/datatables/dataTables.bootstrap4.min.js',
                 'vendor/datatables/app.js',
             ),
-            'users' => $this->ion_auth->users()->result(),
+            'usuarios' => $this->ion_auth->users()->result(),
         );
         $this->load->view('layout/header', $data);
-        $this->load->view('users/index');
+        $this->load->view('usuarios/index');
         $this->load->view('layout/footer');
     }
 

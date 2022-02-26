@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <?php echo (isset($title) ? '<title> MX-Target | ' . $title . '</title>' : '<title>MX-Target Ordem e Serviços</title>') ?>
+  <?php echo (isset($titulo) ? '<title> MX-Target | ' . $titulo . '</title>' : '<title>MX-Target Ordem e Serviços</title>') ?>
 
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url('public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"'); ?>"
