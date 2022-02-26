@@ -55,7 +55,7 @@
                 <th>Login</th>
                 <th>Profile</th>
                 <th class="text-center">Ativo</th>
-                <th class="text-right sorting_asc_disabled sorting_desc_disabled">Ações</th>
+                <th class="text-right nosort">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -69,7 +69,7 @@
                     <?php echo ($user->active == 1 ? '<span class="badge badge-info btn-sm">Yes</span>' : '<span class="badge badge-warning btn-sm">No</span>') ?>
                   </td>
                   <td class="text-right">
-                    <a title="Editar" href="<?php echo base_url('users/edit/' . $user->id); ?>"
+                    <a title="Editar" href="<?php echo base_url('usuarios/edit/' . $user->id); ?>"
                       class="btn btn-sm btn-primary">Editar<i class="fas far-fw fa-user-edit"></i></a>
                     <a title="Deletar" href="javascript(void)" data-toggle="modal"
                       data-target="#user-<?php echo $user->id; ?>" class="btn btn-sm btn-danger">Deletar<i

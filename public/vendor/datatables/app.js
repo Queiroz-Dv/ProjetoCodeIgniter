@@ -253,7 +253,7 @@ $(document).ready(function () {
         'ColumnDefs': [{
             'ordering': false,
             'bSortable': false,
-            'aTargets': ['no-sort']
+            'aTargets': ['nosort']
         }]
     });
 });

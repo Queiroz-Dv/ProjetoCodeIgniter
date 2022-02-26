@@ -77,11 +77,11 @@ class Usuarios extends CI_Controller
         }
     }
 
-    public function edit($user_id = NULL)
+    public function edit($usuario_id = NULL)
     {
-        if (!$user_id || !$this->ion_auth->user($user_id)->row()) {
-            $this->session->set_flashdata('error', 'User not found');
-            redirect('users');
+        if (!$usuario_id || !$this->ion_auth->user($usuario_id)->row()) {
+            $this->session->set_flashdata('error', 'Usuário não encontrado');
+            redirect('usuarios');
         } else {
             $this->form_validation->set_rules('first_name', '', 'trim|required');
             $this->form_validation->set_rules('last_name', '', 'trim|required');
@@ -110,29 +110,29 @@ class Usuarios extends CI_Controller
                     unset($data['password']);
                 }
 
-                if ($this->ion_auth->update($user_id, $data)) {
-                    $user_profile_db = $this->ion_auth->get_users_groups($user_id)->row();
+                if ($this->ion_auth->update($usuario_id, $data)) {
+                    $user_profile_db = $this->ion_auth->get_users_groups($usuario_id)->row();
                     $user_profile_post = $this->input->post('user_profile');
 
                     //If is diff update group
                     if ($user_profile_post != $user_profile_db->id) {
-                        $this->ion_auth->remove_from_group($user_profile_db->id, $user_id);
-                        $this->ion_auth->add_to_group($user_profile_post, $user_id);
+                        $this->ion_auth->remove_from_group($user_profile_db->id, $usuario_id);
+                        $this->ion_auth->add_to_group($user_profile_post, $usuario_id);
                     }
 
-                    $this->session->set_flashdata('Success', 'Data recorded with success');
+                    $this->session->set_flashdata('sucesso', 'Dados salvos com sucesso');
                 } else {
-                    $this->session->set_flashdata('error', 'Erro to record the data');
+                    $this->session->set_flashdata('error', 'Erro ao salvar dados');
                 }
                 redirect('users');
             } else {
                 $data = array(
-                    'title' => "Edit User",
-                    'user' => $this->ion_auth->user($user_id)->row(),
-                    'user_profile' => $this->ion_auth->get_users_groups($user_id)->row(),
+                    'titulo' => "Editar Usuário",
+                    'usuario' => $this->ion_auth->user($usuario_id)->row(),
+                    'perfil_usuario' => $this->ion_auth->get_users_groups($usuario_id)->row(),
                 );
                 $this->load->view('layout/header', $data);
-                $this->load->view('users/edit');
+                $this->load->view('usuarios/edit');
                 $this->load->view('layout/footer');
             }
         }
