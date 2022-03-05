@@ -41,42 +41,42 @@ class Usuarios extends CI_Controller
         $this->form_validation->set_rules('email', '', 'trim|required|valid_email|is_unique[users.email]');
         $this->form_validation->set_rules('username', '', 'trim|required|is_unique[users.username]');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[4]|max_length[255]');
-        $this->form_validation->set_rules('confirm_password', 'Confirm', 'matches[password]');
+        $this->form_validation->set_rules('confirm_password', 'Confirme', 'matches[password]');
         if ($this->form_validation->run()) {
+            //O xss serve para limpar os campos e
+            // tem o objetivo de não salvar nenhum dado malicioso no banco de dados
             $username = $this->security->xss_clean($this->input->post('username'));
             $password = $this->security->xss_clean($this->input->post('password'));
             $email = $this->security->xss_clean($this->input->post('email'));
+
             $additional_data = array(
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
                 'username' => $this->input->post('username'),
                 'active' => $this->input->post('active'),
             );
-            $group = array($this->input->post('user_profile'));
+            $group = array($this->input->post('perfil_usuario'));
 
             $additional_data = $this->security->xss_clean($additional_data);
             $group = $this->security->xss_clean($group);
 
-            //            echo '<pre>';
-            //            print_r($additional_data);
-            //            exit();
-            //            
             if ($this->ion_auth->register($username, $password, $email, $additional_data, $group)) {
-                $this->session->set_flashdata('success', 'Data recorder successfuly');
+                $this->session->set_flashdata('sucesso', 'Dados salvos com sucesso!');
             } else {
-                $this->session->set_flashdata('error', 'Data could not recorder in our database. Please, try again.');
+                $this->session->set_flashdata('error', 'Os dados não foram salvos. Tente novamente, por favor.');
             }
-            redirect('users');
+            redirect('usuarios');
         } else {
             $data = array(
-                'title' => "Register User",
+                'titulo' => "Registrar Usuário",
             );
             $this->load->view('layout/header', $data);
-            $this->load->view('users/add');
+            $this->load->view('usuarios/edit');
             $this->load->view('layout/footer');
         }
     }
 
+    //Editar Usuário
     public function edit($usuario_id = NULL)
     {
         if (!$usuario_id || !$this->ion_auth->user($usuario_id)->row()) {
@@ -87,8 +87,8 @@ class Usuarios extends CI_Controller
             $this->form_validation->set_rules('last_name', '', 'trim|required');
             $this->form_validation->set_rules('email', '', 'trim|required|valid_email', 'callback_email_check');
             $this->form_validation->set_rules('username', '', 'trim|required', 'callback_username_check');
-            $this->form_validation->set_rules('password', 'Password', 'min_length[4]|max_length[255]');
-            $this->form_validation->set_rules('confirm_password', 'Confirm', 'matches[password]');
+            $this->form_validation->set_rules('password', 'Password', 'min_length[5]|max_length[255]');
+            $this->form_validation->set_rules('confirm_password', 'Confirme', 'matches[password]');
             if ($this->form_validation->run()) {
                 $data = elements(
                     array(
@@ -159,24 +159,30 @@ class Usuarios extends CI_Controller
         }
     }
 
+    //Verifica  email
     public function email_check($email)
     {
-        $user_id = $this->input->post('user_id');
+        //Pega o id do input hidden na view edit
+        $usuario_id = $this->input->post('usuario_id');
 
-        if ($this->CoreModel->GetById('users', array('email' => $email, 'id !=' => $user_id))) {
-            $this->form_validation->set_message('email_check', 'This e-mail is already exists');
+        //A condição trata o is_unique. 
+        //Este if verifica se na tabela usuários existe um email 
+        //cujo id seja diferente do que esta sendo tratado no momenmto.
+        if ($this->CoreModel->GetById('users', array('email' => $email, 'id !=' => $usuario_id))) {
+            $this->form_validation->set_message('email_check', 'Este e-mail já existe!');
             return FALSE;
         } else {
             return TRUE;
         }
     }
 
+    //Verifica o usuário
     public function username_check($username)
     {
-        $user_id = $this->input->post('user_id');
+        $usuario_id = $this->input->post('usuario_id');
 
-        if ($this->CoreModel->GetById('users', array('username' => $username, 'id !=' => $user_id))) {
-            $this->form_validation->set_message('username_check', 'This username is already exists.');
+        if ($this->CoreModel->GetById('users', array('username' => $username, 'id !=' => $usuario_id))) {
+            $this->form_validation->set_message('username_check', 'Esse usuário já existe');
             return FALSE;
         } else {
             return TRUE;
