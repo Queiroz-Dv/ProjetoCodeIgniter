@@ -138,24 +138,27 @@ class Usuarios extends CI_Controller
         }
     }
 
-    public function del($user_id = NULL)
+    //Deleta Usuário
+    public function del($usuario_id = NULL)
     {
-        if (!$user_id || !$this->ion_auth->user($user_id)->row()) {
-            $this->session->set_flashdata('error', 'User not found');
-            redirect('users');
+        //Se o usuário não existe
+        if (!$usuario_id || !$this->ion_auth->user($usuario_id)->row()) {
+            $this->session->set_flashdata('error', 'Usuário não existe');
+            redirect('usuarios');
         }
-
-        if ($this->ion_auth->is_admin($user_id)) {
-            $this->session->set_flashdata('error', " The administrator cannot be exclude");
-            redirect('users');
+        //Se o usuário tenta excluir um administrador
+        if ($this->ion_auth->is_admin($usuario_id)) {
+            $this->session->set_flashdata('error', "O admin não pode ser removido.");
+            redirect('usuarios');
         }
-
-        if ($this->ion_auth->delete_user($user_id)) {
-            $this->session->set_flashdata('success', "User exclude successfuly");
-            redirect('users');
+        
+        //Permissão de exclusão
+        if ($this->ion_auth->delete_user($usuario_id)) {
+            $this->session->set_flashdata('sucesso', "Usuário excluído com sucesso");
+            redirect('usuarios');
         } else {
-            $this->session->set_flashdata('error', " The administrator cannot be exclude");
-            redirect('users');
+            $this->session->set_flashdata('error', "O admin não pode ser removido.");
+            redirect('usuarios');
         }
     }
 
